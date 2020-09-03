@@ -1,0 +1,10 @@
+pandas
+numpy
+json5
+jsonschema
+plotly
+dash
+dash_table
+dash_core_components
+dash_html_components
+gunicorn
