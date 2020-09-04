@@ -60,7 +60,6 @@ app.layout = html.Div([
     ],className='row'),
 
 
-    # html.Div(id='output_container', children=[]),
     html.Br(),
 
     html.Div([
@@ -73,16 +72,11 @@ app.layout = html.Div([
 # ------------------------------------------------------------------------------
 # Connect the Plotly graphs with Dash Components
 @app.callback(
-    # [Output(component_id='output_container', component_property='children'),
-    Output(component_id='my_data_map', component_property='figure'),#],
+    Output(component_id='my_data_map', component_property='figure'),
     [Input(component_id='slct_data', component_property='value'),
     Input(component_id='show_hide', component_property='value')]
 )
 def update_graph(slct_data, show_hide):
-    # print(slct_data)
-    # print(type(slct_data))
-
-    # container = "The Data chosen by user was: {}".format(slct_data)
 
     if slct_data == 'Population Density':
         from popden import createfig
