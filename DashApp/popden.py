@@ -1,3 +1,10 @@
+"""
+Baylasan Innovation, Sudan
+مخيم الوهمة،
+Sudan/South Sudan Data,
+Author(s): Rami Ahmed (KPI)
+"""
+
 import numpy as np
 import pandas as pd
 import plotly.express as px  # (version 4.7.0)
@@ -25,7 +32,7 @@ def loadData(state_id_map):
     return dfsd, dfss
 
 
-def createfig(state_id_map, sudan):
+def createfig(state_id_map, sudan, show_hide):
 
     dfsd, dfss = loadData(state_id_map)
 
@@ -34,7 +41,7 @@ def createfig(state_id_map, sudan):
     locations="State Name Ar",
     geojson=sudan,
     color="Density Log Scale",
-    title="Sudan/South sudan Population Density",
+    title="Sudan/South Sudan Population Density",
     width=1300, height=700
     ).update_geos(
         fitbounds="locations",
@@ -49,16 +56,17 @@ def createfig(state_id_map, sudan):
                             "size": 30})
     
     # add South Sudan
-    fig.add_choropleth(
-    autocolorscale=True,
-    z=dfss["Density Log Scale"],
-    locations=dfss["State Name Ar"],
-    locationmode='geojson-id',
-    geojson=sudan,
-    showscale=False,
-    marker=dict(opacity=0.5),
-    hoverinfo='location+z'
-                    ).update_traces(name='')
+    if show_hide == 'show':
+        fig.add_choropleth(
+        autocolorscale=True,
+        z=dfss["Density Log Scale"],
+        locations=dfss["State Name Ar"],
+        locationmode='geojson-id',
+        geojson=sudan,
+        showscale=False,
+        marker=dict(opacity=0.5),
+        hoverinfo='location+z'
+                        ).update_traces(name='')
 
     return fig
 

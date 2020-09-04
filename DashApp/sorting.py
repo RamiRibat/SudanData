@@ -1,3 +1,10 @@
+"""
+Baylasan Innovation, Sudan
+مخيم الوهمة،
+Sudan/South Sudan Data,
+Author(s): Rami Ahmed (KPI)
+"""
+
 import numpy as np
 import pandas as pd
 import plotly.express as px  # (version 4.7.0)
@@ -24,7 +31,7 @@ def loadData(state_id_map):
     return df, dfsd, dfss
 
 
-def createfig(state_id_map, sudan):
+def createfig(state_id_map, sudan, show_hide):
 
     df, dfsd, dfss = loadData(state_id_map)
 
@@ -76,21 +83,22 @@ def createfig(state_id_map, sudan):
     )
 
     # Add South Sudan
-    # Make South Sudan Points Nuetral
-    for i in range(0,len(df)):
-        if df[i:i+1]['ID'][i].startswith('SS') is True:
-            dfss["النقاط"][i:i+1] = (df["النقاط"].min() + df["النقاط"].max())/2
+    if show_hide == 'show':
+        # Make South Sudan Points Nuetral
+        for i in range(0,len(df)):
+            if df[i:i+1]['ID'][i].startswith('SS') is True:
+                dfss["النقاط"][i:i+1] = (df["النقاط"].min() + df["النقاط"].max())/2
 
-    fig.add_choropleth(
-    autocolorscale=False,
-    z=dfss["النقاط"],
-    locations=dfss["الولاية"],
-    locationmode='geojson-id',
-    geojson=sudan,
-    showscale=False,
-    marker=dict(opacity=0.5),
-    hoverinfo='location'
-                    ).update_traces(name='')
+        fig.add_choropleth(
+        autocolorscale=False,
+        z=dfss["النقاط"],
+        locations=dfss["الولاية"],
+        locationmode='geojson-id',
+        geojson=sudan,
+        showscale=False,
+        marker=dict(opacity=0.5),
+        hoverinfo='location'
+                        ).update_traces(name='')
 
     return fig
 
